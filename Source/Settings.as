@@ -265,13 +265,10 @@ vec4 Setting_Gearbox_Gear4Color = vec4(1, 1, 1, 1);
 [Setting category="Gearbox" name="Gear 5 color" color if="Setting_Gearbox_UseGearColors"]
 vec4 Setting_Gearbox_Gear5Color = vec4(1, 1, 1, 1);
 
-[Setting category="Gearbox" name="Use gear colors for lights" if="Setting_Gearbox_TachometerStyle Lights"]
-bool Setting_Gearbox_Lights_UseGearColors = false;
-
-[Setting category="Gearbox" name="Gear light color" color if="Setting_Gearbox_TachometerStyle Lights"]
+[Setting category="Gearbox" name="Gear light color (if not using gear colors)" color if="Setting_Gearbox_TachometerStyle Lights"]
 vec4 Setting_Gearbox_Lights_Color = vec4(0.568f, 1, 0.961f, 1);
 
-[Setting category="Gearbox" name="Gear light color for gear 0 (reverse)" color if="Setting_Gearbox_TachometerStyle Lights"]
+[Setting category="Gearbox" name="Gear light color for gear 0 (backwards, if not using gear colors)" color if="Setting_Gearbox_TachometerStyle Lights"]
 vec4 Setting_Gearbox_Lights_Color_Reverse = vec4(1, 0.216f, 0.216f, 1);
 
 [Setting category="Gearbox" name="Background color for unlit gear lights" color if="Setting_Gearbox_TachometerStyle Lights"]
