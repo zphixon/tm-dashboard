@@ -56,6 +56,26 @@ class DashboardGearbox : DashboardThing
 		LoadFont();
 	}
 
+	vec4 GearColor(uint gear)
+	{
+		switch (gear) {
+			case 0: return Setting_Gearbox_Gear0Color;
+			case 1: return Setting_Gearbox_Gear1Color;
+			case 2: return Setting_Gearbox_Gear2Color;
+			case 3: return Setting_Gearbox_Gear3Color;
+			case 4: return Setting_Gearbox_Gear4Color;
+			case 5: return Setting_Gearbox_Gear5Color;
+#if MP4 || TURBO
+			case 6: return Setting_Gearbox_Gear6Color;
+			case 7: return Setting_Gearbox_Gear7Color;
+#endif
+#if TURBO
+			case 8: return Setting_Gearbox_Gear8Color;
+			case 9: return Setting_Gearbox_Gear9Color;
+#endif
+		}
+	}
+
 	void RenderNumbers(const vec2 &in pos, const vec2 &in size, uint gear, float rpm)
 	{
 		nvg::BeginPath();
@@ -70,23 +90,7 @@ class DashboardGearbox : DashboardThing
 
 		vec4 textColor = Setting_Gearbox_TextColor;
 		if (Setting_Gearbox_UseGearColors) {
-
-			switch (gear) {
-				case 0: textColor = Setting_Gearbox_Gear0Color; break;
-				case 1: textColor = Setting_Gearbox_Gear1Color; break;
-				case 2: textColor = Setting_Gearbox_Gear2Color; break;
-				case 3: textColor = Setting_Gearbox_Gear3Color; break;
-				case 4: textColor = Setting_Gearbox_Gear4Color; break;
-				case 5: textColor = Setting_Gearbox_Gear5Color; break;
-#if MP4 || TURBO
-				case 6: textColor = Setting_Gearbox_Gear6Color; break;
-				case 7: textColor = Setting_Gearbox_Gear7Color; break;
-#endif
-#if TURBO
-				case 8: textColor = Setting_Gearbox_Gear8Color; break;
-				case 9: textColor = Setting_Gearbox_Gear9Color; break;
-#endif
-			}
+			textColor = GearColor(gear);
 		}
 		nvg::FontFace(m_font);
 		nvg::FillColor(textColor);
@@ -219,14 +223,7 @@ class DashboardGearbox : DashboardThing
 				}
 
 				if (Setting_Gearbox_UseGearColors && Setting_Gearbox_Lights_UseGearColors) {
-					switch (gear) {
-						case 0: color = Setting_Gearbox_Gear0Color; break;
-						case 1: color = Setting_Gearbox_Gear1Color; break;
-						case 2: color = Setting_Gearbox_Gear2Color; break;
-						case 3: color = Setting_Gearbox_Gear3Color; break;
-						case 4: color = Setting_Gearbox_Gear4Color; break;
-						case 5: color = Setting_Gearbox_Gear5Color; break;
-					}
+					color = GearColor(gear);
 				}
 
 				float lightPadding = 8.0f;
@@ -240,7 +237,7 @@ class DashboardGearbox : DashboardThing
 						pos.y + lightPadding,
 						lightSize,
 						size.y - 2 * lightPadding,
-						4
+						Setting_Gearbox_BorderRadius
 					);
 					if (i < lights) {
 						nvg::FillColor(color);
