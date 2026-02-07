@@ -265,6 +265,9 @@ vec4 Setting_Gearbox_Gear4Color = vec4(1, 1, 1, 1);
 [Setting category="Gearbox" name="Gear 5 color" color if="Setting_Gearbox_UseGearColors"]
 vec4 Setting_Gearbox_Gear5Color = vec4(1, 1, 1, 1);
 
+[Setting category="Gearbox" name="Show low/high RPM colors on gear lights" if="Setting_Gearbox_TachometerStyle Lights"]
+bool Setting_Gearbox_Lights_ShowLowHighRPM = true;
+
 [Setting category="Gearbox" name="Gear light color (if not using gear colors)" color if="Setting_Gearbox_TachometerStyle Lights"]
 vec4 Setting_Gearbox_Lights_Color = vec4(0.568f, 1, 0.961f, 1);
 

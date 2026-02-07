@@ -235,10 +235,12 @@ class DashboardGearbox : DashboardThing
 					color = GearColor(gear);
 				}
 
-				if (rpm <= Setting_Gearbox_Downshift && gear >= 2) {
-					color = Setting_Gearbox_LowRPMColor;
-				} else if (rpm >= Setting_Gearbox_Upshift && gear <= MAX_GEAR - 1) {
-					color = Setting_Gearbox_HighRPMColor;
+				if (Setting_Gearbox_Lights_ShowLowHighRPM) {
+					if (rpm <= Setting_Gearbox_Downshift && gear >= 2) {
+						color = Setting_Gearbox_LowRPMColor;
+					} else if (rpm >= Setting_Gearbox_Upshift && gear <= MAX_GEAR - 1) {
+						color = Setting_Gearbox_HighRPMColor;
+					}
 				}
 
 				float lightPadding = 8.0f;
