@@ -1,3 +1,11 @@
+#if MP4
+const uint MAX_GEAR = 7;
+#elif TURBO
+const uint MAX_GEAR = 9;
+#else
+const uint MAX_GEAR = 5;
+#endif
+
 class DashboardGearbox : DashboardThing
 {
 	float m_minRpm = 200.0f; // Minimal RPM to avoid flickering at engine idle
@@ -73,6 +81,7 @@ class DashboardGearbox : DashboardThing
 			case 8: return Setting_Gearbox_Gear8Color;
 			case 9: return Setting_Gearbox_Gear9Color;
 #endif
+			default: return Setting_Gearbox_Gear0Color;
 		}
 	}
 
@@ -218,7 +227,7 @@ class DashboardGearbox : DashboardThing
 				vec4 color = Setting_Gearbox_Lights_Color;
 
 				if (gear == 0) {
-					lights = 5;
+					lights = MAX_GEAR;
 					color = Setting_Gearbox_Lights_Color_Reverse;
 				}
 
@@ -227,10 +236,10 @@ class DashboardGearbox : DashboardThing
 				}
 
 				float lightPadding = 8.0f;
-				float spaceForPadding = lightPadding * 6.0;
-				float lightSize = (size.x - spaceForPadding) / 5.0;
+				float spaceForPadding = lightPadding * float(MAX_GEAR + 1);
+				float lightSize = (size.x - spaceForPadding) / float(MAX_GEAR);
 
-				for (uint i = 0; i < 5; i++) {
+				for (uint i = 0; i < MAX_GEAR; i++) {
 					nvg::BeginPath();
 					nvg::RoundedRect(
 						pos.x + (i + 1) * lightPadding + i * lightSize,
