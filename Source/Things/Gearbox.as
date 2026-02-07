@@ -235,6 +235,12 @@ class DashboardGearbox : DashboardThing
 					color = GearColor(gear);
 				}
 
+				if (rpm <= Setting_Gearbox_Downshift && gear >= 2) {
+					color = Setting_Gearbox_LowRPMColor;
+				} else if (rpm >= Setting_Gearbox_Upshift && gear <= MAX_GEAR - 1) {
+					color = Setting_Gearbox_HighRPMColor;
+				}
+
 				float lightPadding = 8.0f;
 				float spaceForPadding = lightPadding * float(MAX_GEAR + 1);
 				float lightSize = (size.x - spaceForPadding) / float(MAX_GEAR);
