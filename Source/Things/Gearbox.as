@@ -1,11 +1,3 @@
-#if MP4
-const uint MAX_GEAR = 7;
-#elif TURBO
-const uint MAX_GEAR = 9;
-#else
-const uint MAX_GEAR = 5;
-#endif
-
 class DashboardGearbox : DashboardThing
 {
 	float m_minRpm = 200.0f; // Minimal RPM to avoid flickering at engine idle
@@ -226,8 +218,16 @@ class DashboardGearbox : DashboardThing
 				uint lights = gear;
 				vec4 color = Setting_Gearbox_Lights_Color;
 
+#if MP4
+				const uint gearCount = 7;
+#elif TURBO
+				const uint gearCount = 9;
+#else
+				const uint gearCount = 5;
+#endif
+
 				if (gear == 0) {
-					lights = MAX_GEAR;
+					lights = gearCount;
 					color = Setting_Gearbox_Lights_Color_Reverse;
 				}
 
@@ -238,16 +238,16 @@ class DashboardGearbox : DashboardThing
 				if (Setting_Gearbox_Lights_ShowLowHighRPM) {
 					if (rpm <= Setting_Gearbox_Downshift && gear >= 2) {
 						color = Setting_Gearbox_LowRPMColor;
-					} else if (rpm >= Setting_Gearbox_Upshift && gear <= MAX_GEAR - 1) {
+					} else if (rpm >= Setting_Gearbox_Upshift && gear <= gearCount - 1) {
 						color = Setting_Gearbox_HighRPMColor;
 					}
 				}
 
 				float lightPadding = 8.0f;
-				float spaceForPadding = lightPadding * float(MAX_GEAR + 1);
-				float lightSize = (size.x - spaceForPadding) / float(MAX_GEAR);
+				float spaceForPadding = lightPadding * float(gearCount + 1);
+				float lightSize = (size.x - spaceForPadding) / float(gearCount);
 
-				for (uint i = 0; i < MAX_GEAR; i++) {
+				for (uint i = 0; i < gearCount; i++) {
 					nvg::BeginPath();
 					nvg::RoundedRect(
 						pos.x + (i + 1) * lightPadding + i * lightSize,
